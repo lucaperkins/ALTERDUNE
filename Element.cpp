@@ -36,5 +36,5 @@ float Element::getMultiplier(const Element& other) const {
     auto it = multipliers.find(other.getName());
     if (it != multipliers.end())
         return it->second;
-    return 1.0f;  // par défaut si élément inconnu
+    return 1.0f; 
 }
