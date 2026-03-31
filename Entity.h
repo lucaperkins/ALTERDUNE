@@ -14,10 +14,10 @@ public:
     virtual ~Entity() = default;
 
     std::string getName() const;  
-    int getHp()    const;
+    int getHp() const;
     int getHpMax() const;
-    int getAtk()   const;
-    int getDef()   const;
+    int getAtk() const;
+    int getDef() const;
 
     void takeDamage(int dmg);
     bool isAlive() const;
