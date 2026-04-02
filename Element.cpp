@@ -10,24 +10,24 @@ Element::Element(const string& name) : name(name) {
     multipliers["NEUTRE"] = 1.0f;
 
     if (name == "FEU") {
-        multipliers["ACIER"] = 1.5f; // Bat l'Acier
-        multipliers["EAU"]   = 0.5f; // Perd contre l'Eau
+        multipliers["ACIER"] = 1.5f; 
+        multipliers["EAU"]   = 0.5f; 
     }
     else if (name == "ACIER") {
-        multipliers["TERRE"] = 1.5f; // Bat la Terre
-        multipliers["FEU"]   = 0.5f; // Perd contre le Feu
+        multipliers["TERRE"] = 1.5f;
+        multipliers["FEU"]   = 0.5f; 
     }
     else if (name == "TERRE") {
-        multipliers["ELECTRIQUE"] = 1.5f; // Bat la Foudre
-        multipliers["ACIER"]  = 0.5f; // Perd contre l'Acier
+        multipliers["ELECTRIQUE"] = 1.5f; 
+        multipliers["ACIER"]  = 0.5f; 
     }
     else if (name == "ELECTRIQUE") {
-        multipliers["EAU"]   = 1.5f; // Bat l'Eau
-        multipliers["TERRE"] = 0.5f; // Perd contre la Terre
+        multipliers["EAU"]   = 1.5f; 
+        multipliers["TERRE"] = 0.5f; 
     }
     else if (name == "EAU") {
-        multipliers["FEU"]    = 1.5f; // Bat le Feu
-        multipliers["ELECTRIQUE"] = 0.5f; // Perd contre la Foudre
+        multipliers["FEU"]    = 1.5f; 
+        multipliers["ELECTRIQUE"] = 0.5f; 
     }
 }
 
