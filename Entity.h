@@ -1,25 +1,26 @@
+#pragma once
 #include <string>
- 
-using namespace std; 
 
 class Entity {
 protected:
-    string name;
+    std::string name;   // std:: obligatoire
     int hp;
     int hpMax;
- 
+    int atk;
+    int def;
+
 public:
-    Entity(const string& name, int hpMax);
+    Entity(const std::string& name, int hpMax, int atk, int def);
     virtual ~Entity() = default;
- 
-    string getName() const;
+
+    std::string getName() const;  
     int getHp() const;
     int getHpMax() const;
- 
+    int getAtk() const;
+    int getDef() const;
+
     void takeDamage(int dmg);
     bool isAlive() const;
- 
-    // Méthode virtuelle pure -> classe abstraite
-    virtual string getType() const = 0;
+
+    virtual std::string getType() const = 0;
 };
- 
