@@ -15,7 +15,7 @@ class Item {
         std::string getType() const;
         int getValue() const;
         int getQuantity() const;
-        const Element getElement() const;
+        const Element& getElement() const;
         bool use();
         void display() const;
 };

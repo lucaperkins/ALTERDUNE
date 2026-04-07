@@ -8,6 +8,7 @@ private:
     std::map<std::string, float> multipliers;
 
 public:
+    Element();
     Element(const std::string& name);
 
     std::string getName() const;

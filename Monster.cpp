@@ -12,8 +12,11 @@ Monster::Monster(const string& name, Category category, const Element& element,
 
 Category Monster::getCategory() const { return category; }
 const Element& Monster::getElement() const { return element; }
+
 int Monster::getMercy() const { return mercy; }
+
 int Monster::getMercyGoal() const { return mercyGoal; }
+
 const vector<string>& Monster::getActIds() const { return actIds; }
 
 void Monster::changerMercy(int x) {
