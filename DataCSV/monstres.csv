@@ -1,0 +1,216 @@
+n°Id,pokemon,type,Categorie,evolution,hp,hpMax,atk,def
+1,Bulbizarre,PLANTE,1,Herbizarre,54,74,51,47
+2,Herbizarre,PLANTE,2,Florizarre,71,91,72,65
+3,Florizarre,PLANTE,3,,90,110,94,84
+4,Salameche,FEU,1,Reptincel,45,65,55,36
+5,Reptincel,FEU,2,DracauFEU,69,89,80,57
+6,DracauFEU,FEU,3,,78,98,97,71
+7,Carapuce,EAU,1,Carabaffe,52,72,51,55
+8,Carabaffe,EAU,2,Tortank,70,90,72,74
+9,Tortank,EAU,3,,85,105,93,92
+10,Chenipan,INSECTE,1,Chrysacier,41,61,47,36
+11,Chrysacier,INSECTE,2,Papilusion,63,83,18,58
+12,Papilusion,INSECTE,3,,75,95,80,65
+13,Aspicot,INSECTE,1,Coconfort,35,55,43,34
+14,Coconfort,INSECTE,2,Dardargnan,56,76,18,58
+15,Dardargnan,INSECTE,3,,80,100,92,68
+16,Roucool,NORMAL,1,Roucoups,54,74,55,46
+17,Roucoups,NORMAL,2,Roucarge,67,87,74,62
+18,Roucarge,NORMAL,3,,94,114,101,84
+19,Rattata,NORMAL,1,Rattatac,50,70,52,44
+20,Rattatac,NORMAL,2,Rattatac,70,90,76,64
+21,Piafabec,NORMAL,1,Rapasdepic,52,72,54,45
+22,Rapasdepic,NORMAL,2,,75,95,80,68
+23,Abo,POISON,1,Arbok,55,75,54,47
+24,Arbok,POISON,2,,71,91,77,66
+25,Pikachu,ELECTRIK,2,Raichu,63,83,82,49
+26,Raichu,ELECTRIK,3,,86,106,108,74
+27,Sabelette,SOL,1,SablairEAU,52,72,58,49
+28,SablairEAU,SOL,2,,78,98,86,73
+29,Nidoran_femelle,POISON,1,Nidorina,54,74,54,46
+30,Nidorina,POISON,2,Nidoqueen,75,95,77,66
+31,Nidoqueen,POISON,3,,85,105,95,80
+32,Nidoran_male,POISON,1,Nidorino,54,74,54,46
+33,Nidorino,POISON,2,Nidoking,65,85,72,61
+34,Nidoking,POISON,3,,89,109,111,82
+35,MeloFEE,FEE,1,Melodelfe,43,63,35,33
+36,Melodelfe,FEE,2,,68,88,62,57
+37,Goupix,FEU,1,FEUnard,47,67,58,35
+38,FEUnard,FEU,2,,60,80,85,57
+39,Rondoudou,NORMAL,1,Grodoudou,48,68,49,46
+40,Grodoudou,NORMAL,2,,74,94,78,69
+41,Nosferapti,POISON,1,Nosferalto,40,60,46,40
+42,Nosferalto,POISON,2,Nostenfer,75,95,83,66
+43,Mystherbe,PLANTE,1,Ortide,45,65,46,43
+44,Ortide,PLANTE,2,Rafflesia,60,80,66,60
+45,Rafflesia,PLANTE,3,,75,95,86,77
+46,Paras,INSECTE,1,Parasect,44,64,48,38
+47,Parasect,INSECTE,2,,60,80,71,57
+48,Mimitoss,INSECTE,1,Aeromite,45,65,49,38
+49,Aeromite,INSECTE,2,,55,75,74,55
+50,Taupiqueur,SOL,1,Triopikeur,56,76,60,51
+51,Triopikeur,SOL,2,,72,92,83,70
+52,Miaouss,NORMAL,1,Persian,48,68,51,44
+53,Persian,NORMAL,2,,69,89,77,65
+54,PSYkokwak,EAU,1,Akwakwak,55,75,52,49
+55,Akwakwak,EAU,2,,70,90,74,68
+56,Ferosinge,COMBAT,1,Colossinge,54,74,76,44
+57,Colossinge,COMBAT,2,,70,90,98,64
+58,Caninos,FEU,1,Arcanin,55,75,70,41
+59,Arcanin,FEU,2,,90,110,104,68
+60,Ptitard,EAU,1,Tetarte,40,60,44,42
+61,Tetarte,EAU,2,Tartard,79,99,77,70
+62,Tartard,EAU,3,,90,110,96,84
+63,Abra,PSY,1,Kadabra,25,45,56,19
+64,Kadabra,PSY,2,Alakazam,40,60,76,36
+65,Alakazam,PSY,3,,55,75,96,53
+66,Machoc,COMBAT,1,Machopeur,50,70,74,42
+67,Machopeur,COMBAT,2,Mackogneur,69,89,96,61
+68,Mackogneur,COMBAT,3,,93,113,121,82
+69,Chetiflor,PLANTE,1,Boustiflor,55,75,51,48
+70,Boustiflor,PLANTE,2,Empiflor,75,95,74,67
+71,Empiflor,PLANTE,3,,91,111,95,84
+72,Tentacool,EAU,1,Tentacruel,53,73,51,48
+73,Tentacruel,EAU,2,,70,90,74,68
+74,Racaillou,ROCHE,1,Gravalanch,53,73,58,71
+75,Gravalanch,ROCHE,2,Grolem,78,98,86,94
+76,Grolem,ROCHE,3,,80,100,106,109
+77,Ponyta,FEU,1,Galopa,50,70,58,38
+78,Galopa,FEU,2,,65,85,80,57
+79,Ramoloss,EAU,1,Flagadoss,90,110,68,70
+80,Flagadoss,EAU,2,,95,115,88,89
+81,Magneti,ELECTRIK,1,Magneton,42,62,50,44
+82,Magneton,ELECTRIK,2,Magnezone,61,81,83,70
+83,Canarticho,NORMAL,1,,52,72,54,45
+84,Doduo,NORMAL,2,Dodrio,65,85,73,61
+85,Dodrio,NORMAL,3,,91,111,99,83
+86,Otaria,EAU,1,Lamantine,52,72,51,47
+87,Lamantine,EAU,2,,80,100,80,72
+88,Tadmorv,POISON,1,Grotadmorv,80,100,68,62
+89,Grotadmorv,POISON,2,,105,125,102,95
+90,Kokiyas,EAU,1,Crustabri,55,75,47,67
+91,Crustabri,EAU,2,,50,70,76,80
+92,Fantominus,SPECTRE,1,Spectrum,48,68,60,32
+93,Spectrum,SPECTRE,2,Ectoplasma,63,83,81,50
+94,Ectoplasma,SPECTRE,3,,88,108,116,74
+95,Onix,ROCHE,1,Steelix,61,81,38,82
+96,Soporifik,PSY,1,Hypnomade,50,70,70,30
+97,Hypnomade,PSY,2,,63,83,91,48
+98,Krabby,EAU,1,Krabboss,55,75,52,49
+99,Krabboss,EAU,2,,76,96,78,70
+100,Voltorbe,ELECTRIK,1,Electrode,40,60,55,29
+101,Electrode,ELECTRIK,2,,60,80,80,50
+102,Noeunoeuf,PLANTE,1,Noadkoko,53,73,50,47
+103,Noadkoko,PLANTE,2,,95,115,95,78
+104,Osselait,SOL,1,Ossatueur,53,73,66,56
+105,Ossatueur,SOL,2,,60,80,84,71
+106,Kicklee,COMBAT,1,,51,71,74,43
+107,Tygnon,COMBAT,1,,59,79,70,55
+108,Excelangue,NORMAL,1,,90,110,74,62
+109,Smogo,POISON,1,Smogogo,51,71,50,51
+110,Smogogo,POISON,2,,65,85,72,81
+111,Rhinocorne,SOL,1,Rhinoferos,59,79,69,67
+112,Rhinoferos,SOL,2,Rhinastoc,75,95,90,84
+113,Leveinard,NORMAL,1,Leuphorie,120,140,18,24
+114,Saquedeneu,PLANTE,1,Bouldeneu,54,74,51,47
+115,Kangourex,NORMAL,1,,54,74,63,56
+116,Hypotrempe,EAU,1,Hypocean,52,72,55,51
+117,Hypocean,EAU,2,Hyporoi,80,100,82,74
+118,Poissirene,EAU,1,Poissiroy,53,73,51,48
+119,Poissiroy,EAU,2,,79,99,79,72
+120,Stari,EAU,1,Staross,56,76,57,53
+121,Staross,EAU,2,,72,92,88,78
+122,M.Mime,PSY,1,,40,60,50,38
+123,Insecateur,INSECTE,1,Cizayox,37,57,54,35
+124,Lippoutou,GLACE,1,,51,71,66,37
+125,Elektek,ELECTRIK,1,Elekable,46,66,64,36
+126,Magmar,FEU,1,Maganon,41,61,63,34
+127,Scarabrute,INSECTE,1,,43,63,62,37
+128,Tauros,NORMAL,1,,55,75,69,47
+129,Magicarpe,EAU,1,Leviator,20,40,12,18
+130,Leviator,EAU,2,,95,115,113,87
+131,Lokhlass,EAU,1,,110,130,82,84
+132,Metamorph,NORMAL,1,,48,68,26,26
+133,Evoli,NORMAL,1,Aquali,49,69,42,40
+134,Aquali,EAU,2,,95,115,88,98
+135,Voltali,ELECTRIK,2,,65,85,102,64
+136,Pyroli,FEU,2,,65,85,108,72
+137,Porygon,NORMAL,1,Porygon2,51,71,55,49
+138,Amonita,ROCHE,1,Amonistar,59,79,61,68
+139,Amonistar,ROCHE,2,,80,100,87,89
+140,Kabuto,ROCHE,1,Kabutops,56,76,60,66
+141,Kabutops,ROCHE,2,,77,97,85,88
+142,Ptera,ROCHE,1,,63,83,70,69
+143,Ronflex,NORMAL,2,,125,145,124,102
+144,Artikodin,GLACE,3,,90,110,114,82
+145,Electhor,ELECTRIK,3,,90,110,114,84
+146,Sulfura,FEU,3,,90,110,116,84
+147,Minidraco,DRAGON,1,Draco,41,61,67,52
+148,Draco,DRAGON,2,Dracolosse,61,81,90,71
+149,Dracolosse,DRAGON,3,,95,115,120,97
+150,Mewtwo,PSY,3,,106,126,130,74
+151,Mew,PSY,3,,100,120,100,100
+172,Pichu,ELECTRIK,1,Pikachu,42,62,40,24
+196,Mentali,PSY,2,,73,93,98,58
+197,Noctali,TENEBRES,2,,70,90,76,96
+470,Phyllali,PLANTE,2,,68,88,96,88
+471,Givrali,GLACE,2,,68,88,94,82
+700,Nymphali,FEE,2,,63,83,82,86
+238,Lippouti,GLACE,1,Lippoutou,42,62,39,23
+174,Toudoudou,NORMAL,1,Rondoudou,46,66,38,33
+173,Melo,FEE,1,MeloFEE,45,65,38,32
+169,Nostenfer,POISON,1,,47,67,95,72
+182,Joliflor,PLANTE,1,,45,65,46,43
+186,Tarpaud,EAU,1,,57,77,53,50
+199,Roigada,EAU,1,,59,79,54,61
+462,Magnezone,ELECTRIK,1,,46,66,62,54
+208,Steelix,Acier,3,,105,125,72,108
+236,Degubant,COMBAT,1,Kicklee,54,74,50,34
+237,Kapoera,COMBAT,1,,59,79,78,47
+464,Rhinastoc,SOL,1,,60,80,76,53
+440,Ptiravi,NORMAL,1,Leveinard,50,70,40,34
+242,Leuphorie,NORMAL,1,,140,160,26,34
+465,Bouldeneu,PLANTE,1,,46,66,46,44
+230,Hyporoi,EAU,1,,52,72,55,51
+439,Mime Jr,PSY,1,M.Mime,53,73,45,34
+212,Cizayox,Acier,1,,64,84,67,81
+239,Elekid,ELECTRIK,1,Elektek,38,58,38,22
+466,Elekable,ELECTRIK,1,,37,57,59,32
+240,Magby,FEU,1,Magmar,48,68,44,28
+467,Maganon,FEU,1,,44,64,64,36
+233,Porygon2,NORMAL,2,Porygon Z,67,87,82,76
+474,Porygon Z,NORMAL,3,,94,114,121,84
+446,Goinfrex,NORMAL,1,Ronflex,50,70,40,34
+19,Rattata d Alola,NORMAL,1,Rattatac d Alola,55,75,59,47
+20,Rattatac d Alola,NORMAL,2,,74,94,84,67
+26,Raichu d Alola,ELECTRIK,3,,85,105,102,68
+27,Sabelette d Alola,GLACE,1,SablairEAU d Alola,47,67,54,39
+28,SablairEAU d Alola,GLACE,2,,70,90,80,62
+37,Goupix d Alola,GLACE,1,FEUnard d Alola,50,70,58,38
+38,FEUnard d Alola,GLACE,2,,61,81,84,59
+50,Taupiqueur d Alola,SOL,1,Triopikeur d Alola,55,75,59,51
+51,Triopikeur d Alola,SOL,2,,75,95,84,72
+52,Miaouss de Galar,Acier,1,,57,77,53,64
+52,Miaouss d Alola,TENEBRES,1,Persian d Alola,48,68,59,41
+53,Persian d Alola,TENEBRES,2,,68,88,84,62
+58,Caninos de Hisui,FEU,1,Acarnin de Hisui,44,64,68,40
+59,Acarnin de Hisui,FEU,2,,95,115,110,75
+74,Racaillou d Alola,ROCHE,1,Gravalanch d Alola,57,77,64,77
+75,Gravalanch d Alola,ROCHE,2,Grolem d Alola,78,98,90,98
+76,Grolem d Alola,ROCHE,3,,80,100,110,113
+77,Ponyta de Galar,PSY,1,Galopa de Galar,50,70,62,38
+78,Galopa de Galar,PSY,2,,65,85,84,57
+79,Ramoloss de Galar,PSY,1,Flagadoss de Galar,90,110,76,62
+80,Flagadoss de Galar,POISON,2,,95,115,90,87
+83,Canarticho de Galar,COMBAT,1,,62,82,66,48
+88,Tadmorv d Alola,POISON,1,Grotadmorv d Alola,80,100,68,62
+89,Grotadmorv d Alola,POISON,2,,105,125,102,95
+100,Voltorbe de Hisui,ELECTRIK,1,Electrode de Hisui,40,60,59,33
+101,Electrode de Hisui,ELECTRIK,2,,60,80,84,54
+103,Noadkoko d Alola,PLANTE,1,,95,115,81,66
+105,Ossatueur d Alola,FEU,1,,60,80,71,49
+110,Smogogo de Galar,POISON,1,,65,85,58,73
+122,M.Mime de Galar,GLACE,1,,50,70,58,40
+144,Artikodin de Galar,PSY,3,,90,110,116,84
+145,Electhor de Galar,COMBAT,3,,90,110,118,88
+146,Sulfura de Galar,TENEBRES,3,,90,110,114,88
