@@ -1,0 +1,31 @@
+id,text,mercy_impact
+JOKE,Tu racontes une blague sur les squelettes. Personne ne rit.,5
+COMPLIMENT,Tu dis que son armure est etincelante.,15
+INSULT,Tu dis qu'il ressemble a un tas de boue.,-20
+THREAT,Tu sors un couteau d'un air menaçant.,-15
+DANCE,Tu fais une petite gigue rythmee.,10
+SING,Tu chantes une ballade melancolique.,8
+HUG,Tu essaies de lui faire un calin.,20
+SCARE,Tu cries soudainement tres fort !,-10
+LAUGH,Tu ris de ses tentatives d'attaque.,-12
+IGNORE,Tu regardes ostensiblement ailleurs.,-5
+MOCK,Tu imites ses gestes de facon ridicule.,-18
+BOO,Tu le hues comme si c'etait une mauvaise piece de theatre.,-14
+SPIT,Tu craches par terre avec mepris.,-25
+STARE,Tu le fixes sans cligner des yeux.,-8
+GOSSIP,Tu racontes des rumeurs embarrassantes sur lui.,2
+FEED,Tu lui lances un biscuit sable.,12
+WINK,Tu lui fais un clin d'oeil complice.,7
+FLEX,Tu montres tes muscles (inexistants).,4
+PRAY,Tu pries pour son salut.,10
+GIFT,Tu lui donnes un petit caillou brillant.,18
+FLATTER,Tu le combles de louanges excessives.,12
+WHISPER,Tu lui murmures des secrets inaudibles.,3
+SHUTUP,Tu lui cries de se taire.,1
+KICK,Tu donnes un petit coup de pied dans le vide.,2
+BOW,Tu fais une reverence tres polie.,14
+JUMP,Tu sautes sur place pour montrer ton energie.,6
+CLAP,Tu applaudis ses efforts.,9
+WHISTLE,Tu siffles un air joyeux.,5
+YAWN,Tu bailles d'un air tres ennuye.,0
+PET,Tu tentes de lui caresser la tete.,15

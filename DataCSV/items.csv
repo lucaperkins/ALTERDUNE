@@ -1,0 +1,43 @@
+name,type,value,quantity,element
+Potion,HEAL,20,3,NEUTRE
+Super Potion,HEAL,50,2,NEUTRE
+Hyper Potion,HEAL,120,1,NEUTRE
+Eau Fraiche,HEAL,25,2,EAU
+Jus de Plante,HEAL,25,2,PLANTE
+Lait Chaud,HEAL,25,2,FEU
+Sirop Glace,HEAL,25,2,GLACE
+Elixir Combat,HEAL,25,2,COMBAT
+Pierre Feu,ATK_BOOST,2,1,FEU
+Pierre Eau,ATK_BOOST,2,1,EAU
+Pierre Foudre,ATK_BOOST,2,1,ELECTRIK
+Pierre Plante,ATK_BOOST,2,1,PLANTE
+Pierre Glace,ATK_BOOST,2,1,GLACE
+Pierre Combat,ATK_BOOST,2,1,COMBAT
+Pierre Poison,ATK_BOOST,2,1,POISON
+Pierre Sol,ATK_BOOST,2,1,SOL
+Pierre Vol,ATK_BOOST,2,1,VOL
+Pierre Psy,ATK_BOOST,2,1,PSY
+Pierre Insecte,ATK_BOOST,2,1,INSECTE
+Pierre Roche,ATK_BOOST,2,1,ROCHE
+Pierre Spectre,ATK_BOOST,2,1,SPECTRE
+Pierre Dragon,ATK_BOOST,2,1,DRAGON
+Pierre Tenebres,ATK_BOOST,2,1,TENEBRES
+Pierre Acier,ATK_BOOST,2,1,ACIER
+Pierre Fee,ATK_BOOST,2,1,FEE
+Bouclier Feu,DEF_BOOST,2,1,FEU
+Bouclier Eau,DEF_BOOST,2,1,EAU
+Bouclier Foudre,DEF_BOOST,2,1,ELECTRIK
+Bouclier Plante,DEF_BOOST,2,1,PLANTE
+Bouclier Glace,DEF_BOOST,2,1,GLACE
+Bouclier Combat,DEF_BOOST,2,1,COMBAT
+Bouclier Poison,DEF_BOOST,2,1,POISON
+Bouclier Sol,DEF_BOOST,2,1,SOL
+Bouclier Vol,DEF_BOOST,2,1,VOL
+Bouclier Psy,DEF_BOOST,2,1,PSY
+Bouclier Insecte,DEF_BOOST,2,1,INSECTE
+Bouclier Roche,DEF_BOOST,2,1,ROCHE
+Bouclier Spectre,DEF_BOOST,2,1,SPECTRE
+Bouclier Dragon,DEF_BOOST,2,1,DRAGON
+Bouclier Tenebres,DEF_BOOST,2,1,TENEBRES
+Bouclier Acier,DEF_BOOST,2,1,ACIER
+Bouclier Fee,DEF_BOOST,2,1,FEE
