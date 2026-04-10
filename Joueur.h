@@ -1,7 +1,10 @@
 #pragma once
+
 #include "Entity.h"
 #include "Inventaire.h"
 #include "Element.h"
+#include "Item.h"
+#include <string>
 
 class Joueur : public Entity {
 private:
@@ -10,6 +13,7 @@ private:
     int epargnes;
     Inventaire inventaire;
     Element element;
+
     float atkMultiplier;
     float defMultiplier;
 

@@ -13,7 +13,7 @@ BestiaryEntree::BestiaryEntree(const string& monsterName, Category category,
     this->epargne = epargne;
 }
 
-const string BestiaryEntree::getMonsterName() const { return monsterName; }
+const string& BestiaryEntree::getMonsterName() const { return monsterName; }
 Category BestiaryEntree::getCategory() const { return category; }
 const Element& BestiaryEntree::getElement() const { return element; }
 int BestiaryEntree::getHpMax() const { return hpMax; }
@@ -22,11 +22,12 @@ int BestiaryEntree::getDef() const { return def; }
 bool BestiaryEntree::getEpargne() const { return epargne; }
 
 void BestiaryEntree::showEntry() const {
-    cout << "  " << monsterName
+    cout << " - " << monsterName
          << " [" << CategoryToString(category) << "]"
          << " Element: " << element.getName()
-         << "  HP: "  << hpMax
-         << "  ATK: " << atk
-         << "  DEF: " << def
-         << "  -> "   << (epargne ? "Epargne" : "Tue") << endl;
+         << " HP: " << hpMax
+         << " ATK: " << atk
+         << " DEF: " << def
+         << " -> " << (epargne ? "Epargne" : "Tue")
+         << endl;
 }
