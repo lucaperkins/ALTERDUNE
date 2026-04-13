@@ -1,6 +1,5 @@
 #include <iostream>
 
-// Tes headers
 #include "Joueur.h"
 #include "Monster.h"
 #include "Inventaire.h"
