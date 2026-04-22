@@ -6,6 +6,7 @@
 #include <algorithm>
 using namespace std;
 
+/*Cette classe sert à charger les différents fichiers csv*/
 // Utilitaires 
 
 string FileLoader::trim(const string& s) {

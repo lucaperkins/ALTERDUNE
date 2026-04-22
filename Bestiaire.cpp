@@ -2,6 +2,10 @@
 #include <iostream>
 using namespace std;
 
+/*C'est la classe qui permet de créer le bestiaire, il y'a une méthode pour ajouter une entité dans le 
+bestiaire, une pour voir les monstres du bestiaie, une pour voir si il est vide ou non et enfin, une méthode
+pour voir la taille du bestiaire*/
+
 void Bestiaire::addEntry(const BestiaryEntree& entree) {
     entrees.push_back(entree);
 }

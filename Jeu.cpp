@@ -6,7 +6,19 @@
 
 using namespace std;
 
+/*La classe Jeu centralise tout le déroulement d'une partie:
+    - création du joueur,
+    - chargement des données depuis les fichiers CSV,
+    - gestion du menu principal,
+    - lancement des combats,
+    - affichage des statistiques, de l'inventaire et du bestiaire,
+    - vérification des conditions de fin de partie.
+    */
+
 Jeu::Jeu() : joueur(nullptr), rng(random_device{}()) {}
+
+/*Recherche une action ACT dans le catalogue à partir de son identifiant.
+  Renvoie un pointeur vers l'action si elle existe sinon nullptr.*/
 
 const ActAction* Jeu::findActById(const string& id) const {
     for (const auto& act : actCatalog) {
@@ -16,12 +28,17 @@ const ActAction* Jeu::findActById(const string& id) const {
     }
     return nullptr;
 }
-
+/*Cette méthode génère des dégats aléatoires entre 0 et les HPmax de la cible.
+  Cette méthode est utilisée pour les attaques du joeueur et du monstres.
+  Les deux attaquent de la même manière.*/
 int Jeu::randomDamage(int hpMax) {
     if (hpMax <= 0) return 0;
     uniform_int_distribution<int> dist(0, hpMax);
     return dist(rng);
 }
+/*Crée une copie d'un monstre chargé en mémoire.
+  C'est utile car ça permet de lancer un combat sur une copie du monstre de base sans 
+  modifier définitivement celui stocké dans la liste des monstres. */
 
 unique_ptr<Monster> Jeu::cloneMonster(const Monster& m) const {
     if (m.getCategory() == Category::NormalMonster) {
@@ -59,6 +76,9 @@ unique_ptr<Monster> Jeu::cloneMonster(const Monster& m) const {
     );
 }
 
+/*Cette méthode permet de charger les items du joeurs depuis le fichier csv grâce à la 
+  classe fileloader*/
+
 bool Jeu::chargerInv(const string& file) {
     if (!joueur) return false;
 
@@ -71,6 +91,10 @@ bool Jeu::chargerInv(const string& file) {
     return true;
 }
 
+/*Cette méthode permet de charger les monstres depuis le fichier csv grâce à la méthode Filoader.
+Les monstres retournés sous forme de pointeurs bruts sont convertis en unique_ptr pour
+meilleure gestion de la mémoire*/
+
 bool Jeu::chargerMonstre(const string& file) {
     vector<Monster*> monstresBruts = FileLoader::loadMonstres(file);
 
@@ -82,12 +106,13 @@ bool Jeu::chargerMonstre(const string& file) {
 
     return !listeMonstre.empty();
 }
-
+/* charge le catalogue des action act depuis le fichiercsv act.csv*/
 bool Jeu::chargerActs(const string& file) {
     actCatalog = FileLoader::loadActs(file);
     return !actCatalog.empty();
 }
-
+/*Cette méthode utilise la classe Inventaire pour afficher
+    les items du joueur et vérifier si l'inventaire est vide.*/
 void Jeu::showInventory() {
     if (!joueur) return;
 
@@ -110,16 +135,25 @@ void Jeu::showInventory() {
 
     joueur->useItem(choix);
 }
-
+/* affiche les statistiques actuelles du joueur*/
 void Jeu::showStats() const {
     if (!joueur) return;
     joueur->showStats();
 }
-
+/*
+    Affiche le bestiaire, c'est-à-dire les monstres déjà vaincus
+    ou épargnés pendant la partie.
+*/
 void Jeu::ShowBestiaire() const {
     bestiaire.showBestiary();
 }
-
+/*
+    Vérifie si la partie est terminée.
+    Deux cas possibles :
+    - le joueur est mort : défaite immédiate ;
+    - le joueur atteint 10 victoires : affichage de la fin correspondante
+      (génocidaire, pacifiste ou neutre).
+*/
 bool Jeu::checkEnding() const {
     if (!joueur) return false;
 
@@ -147,7 +181,14 @@ bool Jeu::checkEnding() const {
 
     return false;
 }
-
+/*
+    Lance un combat contre un monstre choisi aléatoirement.
+    Le combat suit la boucle suivante :
+    - affichage de l'état du joueur et du monstre ;
+    - choix d'une action : FIGHT, ACT, ITEM ou MERCY ;
+    - exécution de l'action choisie ;
+    - si le monstre survit, il attaque le joueur à son tour.
+*/
 void Jeu::startbattle() {
     if (!joueur) return;
 
@@ -155,10 +196,10 @@ void Jeu::startbattle() {
         cout << "Aucun monstre disponible.\n";
         return;
     }
-
+// Sélection aléatoire d'un monstre dans la liste des monstres disponnibles
     uniform_int_distribution<int> dist(0, static_cast<int>(listeMonstre.size()) - 1);
     int index = dist(rng);
-
+// On combat une copie u monstre, pas le modèle original
     unique_ptr<Monster> ennemi = cloneMonster(*listeMonstre[index]);
 
     cout << "\n=== Un combat commence ===\n";
@@ -184,7 +225,7 @@ void Jeu::startbattle() {
         }
 
         bool combatTermine = false;
-
+// FIGHT : le joueur attaque directement le monstre
         if (choix == 1) {
             int dmg = randomDamage(ennemi->getHpMax());
             dmg = min(dmg, ennemi->getHp());
@@ -197,7 +238,7 @@ void Jeu::startbattle() {
                 ennemi->takeDamage(dmg);
                 cout << "Tu infliges " << dmg << " degats.\n";
             }
-
+// Si le monstre meurt, le joueur gagne une victoire
             if (!ennemi->isAlive()) {
                 cout << ennemi->getName() << " est vaincu.\n";
                 joueur->addVictoire();
@@ -216,11 +257,12 @@ void Jeu::startbattle() {
                 combatTermine = true;
             }
         }
+// ACT : le joueur choisit une action influençant la jauge de Mercy
         else if (choix == 2) {
             vector<const ActAction*> actionsDisponibles;
 
             const vector<string>& ids = ennemi->getActIds();
-
+ // Si le monstre possède des identifiants d'actions, on utilise celles-ci
             if (!ids.empty()) {
                 int maxActs = min(static_cast<int>(ids.size()), ennemi->getActCount());
 
@@ -231,6 +273,7 @@ void Jeu::startbattle() {
                     }
                 }
             }
+// Sinon, on prend les premières actions du catalogue général
             else {
                 int maxActs = min(static_cast<int>(actCatalog.size()), ennemi->getActCount());
 
@@ -268,6 +311,7 @@ void Jeu::startbattle() {
                      << "/" << ennemi->getMercyGoal() << "\n";
             }
         }
+ // ITEM : le joueur utilise un objet de son inventaire
         else if (choix == 3) {
             cout << "\n=== Items ===\n";
             joueur->getInventaire().showItems();
@@ -287,6 +331,7 @@ void Jeu::startbattle() {
                 joueur->useItem(itemIndex);
             }
         }
+// MERCY : le joueur tente d'épargner le monstre si la jauge est suffisante
         else if (choix == 4) {
             if (ennemi->peutEtreEpargne()) {
                 cout << "\nTu epargnes " << ennemi->getName() << ".\n";
@@ -316,7 +361,7 @@ void Jeu::startbattle() {
         if (combatTermine) {
             return;
         }
-
+  // Si le combat continue, le monstre attaque à son tour
         if (ennemi->isAlive()) {
             int dmg = randomDamage(joueur->getHpMax());
             dmg = min(dmg, joueur->getHp());
@@ -337,6 +382,16 @@ void Jeu::startbattle() {
         }
     }
 }
+
+/*
+    Affiche et gère le menu principal du jeu.
+    Tant que la partie n'est pas terminée, le joueur peut :
+    - consulter le bestiaire,
+    - lancer un combat,
+    - afficher ses statistiques,
+    - utiliser ses items,
+    - quitter la partie.
+*/
 
 void Jeu::mainMenu() {
     if (!joueur) return;
@@ -385,6 +440,15 @@ void Jeu::mainMenu() {
         }
     }
 }
+
+/*
+    Initialise une nouvelle partie :
+    - demande le nom du joueur,
+    - crée le joueur avec ses statistiques de base,
+    - charge les items, monstres et actions ACT depuis les fichiers CSV,
+    - affiche le résumé initial,
+    - lance ensuite le menu principal.
+*/
 
 void Jeu::start() {
     string nom;

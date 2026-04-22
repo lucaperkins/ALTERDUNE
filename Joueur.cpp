@@ -4,6 +4,9 @@
 
 using namespace std;
 
+/*Cette classe permet de gérer toutes les spécificités liées au joueur*/
+
+
 Joueur::Joueur(const string& name, int hpMax, int atk, int def, const Element& element)
     : Entity(name, hpMax, atk, def),
       victories(0),
@@ -39,13 +42,15 @@ void Joueur::addEpargne() { epargnes++; }
 void Joueur::addItem(const Item& item) {
     inventaire.addItem(item);
 }
-
+/*Permet d'enlever le boost en cours d'utilisation*/
 void Joueur::clearBoost() {
     hasActiveBoost = false;
     boostType = "";
     boostValue = 1.0f;
     boostElement = "";
 }
+
+/*méthode qui permet au joueur d'utiliser un item*/
 
 void Joueur::useItem(int i) {
     const Item* item = inventaire.useItem(i);
@@ -69,7 +74,7 @@ void Joueur::useItem(int i) {
              << " [" << boostElement << "] ! Effet actif." << endl;
     }
 }
-
+/*Méthode qui permet d'afficher les statistiques du joueur*/
 void Joueur::showStats() const {
     cout << "\n=== Statistiques de " << name << " ===\n"
          << "Element   : " << element.getName() << "\n"

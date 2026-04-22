@@ -2,6 +2,9 @@
 #include <iostream>
 using namespace std;
 
+/*Cette classe permet d'ajouter un monstre au bestiaire.
+il y a une méthode qui permet de voir le statut du monstre*/
+
 BestiaryEntree::BestiaryEntree(const string& monsterName, Category category,
                                const Element& element, int hpMax, int atk, int def, bool epargne) {
     this->monsterName = monsterName;

@@ -2,6 +2,11 @@
 #include <iostream>
 using namespace std;
 
+/*
+    Cette classe représente une action ACT que le joueur peut utiliser en combat.
+    Elle permet d’interagir avec le monstre sans attaquer, en modifiant sa jauge de mercy.
+*/
+
 ActAction::ActAction(const string& id, const string& text, int mercyImpact) {
     this->id = id;
     this->text = text;
@@ -11,7 +16,10 @@ ActAction::ActAction(const string& id, const string& text, int mercyImpact) {
 const string& ActAction::getId() const { return id; }
 const string& ActAction::getText() const { return text; }
 int ActAction::getMercyImpact() const { return mercyImpact; }
-
+/*Applique l'action au monstre:
+  - affiche le texte
+  - modifie la mercy du monstre
+  - affiche la réaction du monstre*/
 void ActAction::apply(Monster& m) const {
     cout << "\n  >> " << text << "\n";
     m.changerMercy(mercyImpact);

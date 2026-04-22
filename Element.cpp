@@ -1,7 +1,9 @@
 #include "Element.h"
 
 using namespace std;
-
+/*Dans cette classe, nous avons introduit une notion d'éléments. Chaque monstres et chaque items ont un élément
+qui lui est attribué. Avec un système de bonus ou de malus des éléments. Nous avons utilisé ici le même système
+que dans pokemon*/
 Element::Element() : name("NEUTRE") {
     multipliers["NORMAL"]= 1.0f;
     multipliers["PLANTE"]= 1.0f;
