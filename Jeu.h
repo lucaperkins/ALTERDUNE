@@ -39,4 +39,7 @@ public:
     void showStats() const;
     void ShowBestiaire() const;
     bool checkEnding() const;
+
+    
+    void consulterFaiblesses() const;
 };

@@ -1,6 +1,6 @@
 #include "Category.h"
 using namespace std;
-
+/* classe qui définit les catégories de monstres */
 std::string CategoryToString(Category type) {
     switch (type) {
         case Category::Boss: return "Boss";

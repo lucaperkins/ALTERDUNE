@@ -3,244 +3,176 @@
 #include <iostream>
 #include <algorithm>
 #include <limits>
+#include <cstdlib>
 
 using namespace std;
 
-/*La classe Jeu centralise tout le déroulement d'une partie:
-    - création du joueur,
-    - chargement des données depuis les fichiers CSV,
-    - gestion du menu principal,
-    - lancement des combats,
-    - affichage des statistiques, de l'inventaire et du bestiaire,
-    - vérification des conditions de fin de partie.
-    */
+/*Classe principale qui gère toute la logique du jeu*/
 
 Jeu::Jeu() : joueur(nullptr), rng(random_device{}()) {}
 
-/*Recherche une action ACT dans le catalogue à partir de son identifiant.
-  Renvoie un pointeur vers l'action si elle existe sinon nullptr.*/
-
+/*Recherche une action ACT par son id*/
 const ActAction* Jeu::findActById(const string& id) const {
     for (const auto& act : actCatalog) {
-        if (act.getId() == id) {
-            return &act;
-        }
+        if (act.getId() == id) return &act;
     }
     return nullptr;
 }
-/*Cette méthode génère des dégats aléatoires entre 0 et les HPmax de la cible.
-  Cette méthode est utilisée pour les attaques du joeueur et du monstres.
-  Les deux attaquent de la même manière.*/
-int Jeu::randomDamage(int hpMax) {
-    if (hpMax <= 0) return 0;
-    uniform_int_distribution<int> dist(0, hpMax);
+
+/*Génère des dégâts aléatoires*/
+int Jeu::randomDamage(int maxValue) {
+    if (maxValue <= 0) return 0;
+    uniform_int_distribution<int> dist(0, maxValue);
     return dist(rng);
 }
-/*Crée une copie d'un monstre chargé en mémoire.
-  C'est utile car ça permet de lancer un combat sur une copie du monstre de base sans 
-  modifier définitivement celui stocké dans la liste des monstres. */
 
+/*Clone un monstre*/
 unique_ptr<Monster> Jeu::cloneMonster(const Monster& m) const {
-    if (m.getCategory() == Category::NormalMonster) {
-        return make_unique<NormalMonster>(
-            m.getName(),
-            m.getElement(),
-            m.getHpMax(),
-            m.getAtk(),
-            m.getDef(),
-            m.getMercyGoal(),
-            m.getActIds()
-        );
-    }
 
-    if (m.getCategory() == Category::MiniBoss) {
-        return make_unique<MiniBoss>(
-            m.getName(),
-            m.getElement(),
-            m.getHpMax(),
-            m.getAtk(),
-            m.getDef(),
-            m.getMercyGoal(),
-            m.getActIds()
-        );
-    }
+    if (m.getCategory() == Category::NormalMonster)
+        return make_unique<NormalMonster>(m.getName(), m.getElement(),
+            m.getHpMax(), m.getAtk(), m.getDef(),
+            m.getMercyGoal(), m.getActIds());
 
-    return make_unique<Boss>(
-        m.getName(),
-        m.getElement(),
-        m.getHpMax(),
-        m.getAtk(),
-        m.getDef(),
-        m.getMercyGoal(),
-        m.getActIds()
-    );
+    if (m.getCategory() == Category::MiniBoss)
+        return make_unique<MiniBoss>(m.getName(), m.getElement(),
+            m.getHpMax(), m.getAtk(), m.getDef(),
+            m.getMercyGoal(), m.getActIds());
+
+    return make_unique<Boss>(m.getName(), m.getElement(),
+        m.getHpMax(), m.getAtk(), m.getDef(),
+        m.getMercyGoal(), m.getActIds());
 }
 
-/*Cette méthode permet de charger les items du joeurs depuis le fichier csv grâce à la 
-  classe fileloader*/
-
+/*Charge inventaire*/
 bool Jeu::chargerInv(const string& file) {
     if (!joueur) return false;
 
     vector<Item> items = FileLoader::loadItems(file);
-
-    for (const auto& item : items) {
-        joueur->addItem(item);
-    }
+    for (const auto& item : items) joueur->addItem(item);
 
     return true;
 }
 
-/*Cette méthode permet de charger les monstres depuis le fichier csv grâce à la méthode Filoader.
-Les monstres retournés sous forme de pointeurs bruts sont convertis en unique_ptr pour
-meilleure gestion de la mémoire*/
-
+/*Charge monstres*/
 bool Jeu::chargerMonstre(const string& file) {
     vector<Monster*> monstresBruts = FileLoader::loadMonstres(file);
 
     listeMonstre.clear();
 
-    for (Monster* m : monstresBruts) {
+    for (Monster* m : monstresBruts)
         listeMonstre.push_back(unique_ptr<Monster>(m));
-    }
 
     return !listeMonstre.empty();
 }
-/* charge le catalogue des action act depuis le fichiercsv act.csv*/
+
+/*Charge ACT*/
 bool Jeu::chargerActs(const string& file) {
     actCatalog = FileLoader::loadActs(file);
     return !actCatalog.empty();
 }
-/*Cette méthode utilise la classe Inventaire pour afficher
-    les items du joueur et vérifier si l'inventaire est vide.*/
+
+/*Inventaire*/
 void Jeu::showInventory() {
     if (!joueur) return;
 
-    cout << "\n=== Inventaire ===\n";
+    cout << "\n========== INVENTAIRE ==========\n";
     joueur->getInventaire().showItems();
 
     if (joueur->getInventaire().isEmpty()) return;
 
-    cout << "Entrer l'index d'un item a utiliser hors combat (-1 pour retour) : ";
+    cout << "Choisis un item (-1 pour retour) : ";
     int choix;
     cin >> choix;
 
-    if (cin.fail()) {
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        return;
-    }
-
-    if (choix == -1) return;
-
-    joueur->useItem(choix);
+    if (choix != -1)
+        joueur->useItem(choix);
 }
-/* affiche les statistiques actuelles du joueur*/
+
+/*Stats*/
 void Jeu::showStats() const {
-    if (!joueur) return;
-    joueur->showStats();
+    if (joueur) joueur->showStats();
 }
-/*
-    Affiche le bestiaire, c'est-à-dire les monstres déjà vaincus
-    ou épargnés pendant la partie.
-*/
+
+/*Bestiaire*/
 void Jeu::ShowBestiaire() const {
     bestiaire.showBestiary();
 }
-/*
-    Vérifie si la partie est terminée.
-    Deux cas possibles :
-    - le joueur est mort : défaite immédiate ;
-    - le joueur atteint 10 victoires : affichage de la fin correspondante
-      (génocidaire, pacifiste ou neutre).
-*/
+
+/*Fin de partie*/
 bool Jeu::checkEnding() const {
     if (!joueur) return false;
 
     if (!joueur->isAlive()) {
         cout << "\n=== GAME OVER ===\n";
-        cout << "Tu as ete vaincu.\n";
         return true;
     }
 
     if (joueur->getVictories() >= 10) {
-        cout << "\n=== FIN DE PARTIE ===\n";
-
-        if (joueur->getTues() > 0 && joueur->getEpargnes() == 0) {
-            cout << "Fin Genocidaire : tu as tue tous les monstres vaincus.\n";
-        }
-        else if (joueur->getEpargnes() > 0 && joueur->getTues() == 0) {
-            cout << "Fin Pacifiste : tu as epargne tous les monstres vaincus.\n";
-        }
-        else {
-            cout << "Fin Neutre : tu as parfois tue, parfois epargne.\n";
-        }
-
+        cout << "\n=== FIN DU JEU ===\n";
         return true;
     }
 
     return false;
 }
-/*
-    Lance un combat contre un monstre choisi aléatoirement.
-    Le combat suit la boucle suivante :
-    - affichage de l'état du joueur et du monstre ;
-    - choix d'une action : FIGHT, ACT, ITEM ou MERCY ;
-    - exécution de l'action choisie ;
-    - si le monstre survit, il attaque le joueur à son tour.
-*/
-void Jeu::startbattle() {
-    if (!joueur) return;
 
-    if (listeMonstre.empty()) {
-        cout << "Aucun monstre disponible.\n";
-        return;
-    }
-// Sélection aléatoire d'un monstre dans la liste des monstres disponnibles
-    uniform_int_distribution<int> dist(0, static_cast<int>(listeMonstre.size()) - 1);
+/*Combat*/
+void Jeu::startbattle() {
+
+    if (!joueur || listeMonstre.empty()) return;
+
+    uniform_int_distribution<int> dist(0, listeMonstre.size() - 1);
     int index = dist(rng);
-// On combat une copie u monstre, pas le modèle original
+
     unique_ptr<Monster> ennemi = cloneMonster(*listeMonstre[index]);
 
-    cout << "\n=== Un combat commence ===\n";
-    ennemi->displayStatus();
+    cout << "\n=================================\n";
+    cout << "Un combat commence !\n";
+    cout << "=================================\n";
 
     while (joueur->isAlive() && ennemi->isAlive()) {
-        cout << "\n---------------------------------\n";
-        cout << joueur->getName() << " HP: " << joueur->getHp() << "/" << joueur->getHpMax() << "\n";
-        cout << ennemi->getName() << " HP: " << ennemi->getHp() << "/" << ennemi->getHpMax()
-             << " | Mercy: " << ennemi->getMercy() << "/" << ennemi->getMercyGoal() << "\n";
 
-        cout << "\n1. FIGHT\n2. ACT\n3. ITEM\n4. MERCY\n";
-        cout << "Choix : ";
+        cout << "\n---------------------------------\n";
+
+        cout << joueur->getName() << " | HP: "
+             << joueur->getHp() << "/" << joueur->getHpMax() << "\n\n";
+
+        cout << "Adversaire : " << ennemi->getName() << "\n";
+        cout << "Type       : " << ennemi->getElement().getName() << "\n";
+        cout << "Categorie  : " << CategoryToString(ennemi->getCategory()) << "\n";
+        cout << "HP         : " << ennemi->getHp() << "/" << ennemi->getHpMax() << "\n";
+        cout << "Mercy      : " << ennemi->getMercy() << "/" << ennemi->getMercyGoal() << "\n";
+
+        cout << "\n=== Que veux-tu faire ? ===\n";
+        cout << "1. FIGHT  - Attaquer\n";
+        cout << "2. ACT    - Interagir\n";
+        cout << "3. ITEM   - Utiliser un objet\n";
+        cout << "4. MERCY  - Epargner\n";
+        cout << "Ton choix : ";
 
         int choix;
         cin >> choix;
 
-        if (cin.fail()) {
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Choix invalide.\n";
-            continue;
-        }
-
         bool combatTermine = false;
-// FIGHT : le joueur attaque directement le monstre
+
+        // FIGHT
         if (choix == 1) {
+
             int dmg = randomDamage(ennemi->getHpMax());
             dmg = min(dmg, ennemi->getHp());
 
-            cout << "\nTu attaques " << ennemi->getName() << " !\n";
+            if (dmg == 0)
+                cout << "Ton attaque rate... Aucun degat.\n";
+            else
+                cout << "Tu infliges " << dmg << " degats a "
+                     << ennemi->getName() << " !\n";
 
-            if (dmg == 0) {
-                cout << "L'attaque ne fait aucun degat.\n";
-            } else {
-                ennemi->takeDamage(dmg);
-                cout << "Tu infliges " << dmg << " degats.\n";
-            }
-// Si le monstre meurt, le joueur gagne une victoire
+            ennemi->takeDamage(dmg);
+
             if (!ennemi->isAlive()) {
-                cout << ennemi->getName() << " est vaincu.\n";
+
+                cout << ennemi->getName() << " est vaincu !\n";
+
                 joueur->addVictoire();
                 joueur->addTue();
 
@@ -257,84 +189,59 @@ void Jeu::startbattle() {
                 combatTermine = true;
             }
         }
-// ACT : le joueur choisit une action influençant la jauge de Mercy
+
+        // ACT
         else if (choix == 2) {
-            vector<const ActAction*> actionsDisponibles;
 
-            const vector<string>& ids = ennemi->getActIds();
- // Si le monstre possède des identifiants d'actions, on utilise celles-ci
-            if (!ids.empty()) {
-                int maxActs = min(static_cast<int>(ids.size()), ennemi->getActCount());
+            int nbActs = ennemi->getActCount();
+            vector<const ActAction*> choixActs;
 
-                for (int i = 0; i < maxActs; ++i) {
-                    const ActAction* action = findActById(ids[i]);
-                    if (action) {
-                        actionsDisponibles.push_back(action);
-                    }
-                }
-            }
-// Sinon, on prend les premières actions du catalogue général
-            else {
-                int maxActs = min(static_cast<int>(actCatalog.size()), ennemi->getActCount());
+            vector<int> indices;
+            for (int i = 0; i < actCatalog.size(); i++)
+                indices.push_back(i);
 
-                for (int i = 0; i < maxActs; ++i) {
-                    actionsDisponibles.push_back(&actCatalog[i]);
-                }
+            shuffle(indices.begin(), indices.end(), rng);
+
+            for (int i = 0; i < nbActs; i++)
+                choixActs.push_back(&actCatalog[indices[i]]);
+
+            cout << "\nActions disponibles :\n";
+
+            for (int i = 0; i < choixActs.size(); i++) {
+                cout << i << ". "
+                     << choixActs[i]->getId()
+                     << " (Mercy " << choixActs[i]->getMercyImpact() << ")\n";
             }
 
-            if (actionsDisponibles.empty()) {
-                cout << "Aucune action ACT disponible.\n";
-            } else {
-                cout << "\nActions ACT disponibles :\n";
-                for (int i = 0; i < static_cast<int>(actionsDisponibles.size()); ++i) {
-                    cout << i << ". " << actionsDisponibles[i]->getId() << "\n";
-                }
+            cout << "Choix : ";
+            int c;
+            cin >> c;
 
-                cout << "Choisis une action : ";
-                int actChoice;
-                cin >> actChoice;
-
-                if (cin.fail()) {
-                    cin.clear();
-                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                    cout << "Choix invalide.\n";
-                    continue;
-                }
-
-                if (actChoice < 0 || actChoice >= static_cast<int>(actionsDisponibles.size())) {
-                    cout << "Choix invalide.\n";
-                    continue;
-                }
-
-                actionsDisponibles[actChoice]->apply(*ennemi);
-                cout << "Mercy actuel : " << ennemi->getMercy()
-                     << "/" << ennemi->getMercyGoal() << "\n";
-            }
+            if (c >= 0 && c < choixActs.size())
+                choixActs[c]->apply(*ennemi);
         }
- // ITEM : le joueur utilise un objet de son inventaire
+
+        // ITEM
         else if (choix == 3) {
+
             cout << "\n=== Items ===\n";
             joueur->getInventaire().showItems();
 
-            if (!joueur->getInventaire().isEmpty()) {
-                cout << "Choisis l'index d'un item : ";
-                int itemIndex;
-                cin >> itemIndex;
+            cout << "Choix : ";
+            int i;
+            cin >> i;
 
-                if (cin.fail()) {
-                    cin.clear();
-                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                    cout << "Choix invalide.\n";
-                    continue;
-                }
-
-                joueur->useItem(itemIndex);
-            }
+            joueur->useItem(i);
         }
-// MERCY : le joueur tente d'épargner le monstre si la jauge est suffisante
+
+        // MERCY
         else if (choix == 4) {
+
             if (ennemi->peutEtreEpargne()) {
-                cout << "\nTu epargnes " << ennemi->getName() << ".\n";
+
+                cout << "Tu epargnes " << ennemi->getName()
+                     << ". Le combat se termine sans violence.\n";
+
                 joueur->addVictoire();
                 joueur->addEpargne();
 
@@ -350,135 +257,83 @@ void Jeu::startbattle() {
 
                 combatTermine = true;
             } else {
-                cout << "La mercy est insuffisante pour epargner ce monstre.\n";
+                cout << "Impossible d'epargner ce monstre pour l'instant.\n";
             }
         }
-        else {
-            cout << "Choix invalide.\n";
-            continue;
-        }
 
-        if (combatTermine) {
-            return;
-        }
-  // Si le combat continue, le monstre attaque à son tour
+        if (combatTermine) return;
+
+        // TOUR MONSTRE
         if (ennemi->isAlive()) {
-            int dmg = randomDamage(joueur->getHpMax());
+
+            int dmg = randomDamage(ennemi->getAtk());
             dmg = min(dmg, joueur->getHp());
 
-            cout << "\n" << ennemi->getName() << " attaque !\n";
+            if (dmg == 0)
+                cout << ennemi->getName() << " rate son attaque.\n";
+            else
+                cout << ennemi->getName()
+                     << " t'inflige " << dmg << " degats !\n";
 
-            if (dmg == 0) {
-                cout << "L'attaque du monstre rate.\n";
-            } else {
-                joueur->takeDamage(dmg);
-                cout << "Tu subis " << dmg << " degats.\n";
-            }
+            joueur->takeDamage(dmg);
 
             if (!joueur->isAlive()) {
-                cout << "Tu as ete vaincu...\n";
+                cout << "Tu es tombe au combat...\n";
                 return;
             }
         }
     }
 }
 
-/*
-    Affiche et gère le menu principal du jeu.
-    Tant que la partie n'est pas terminée, le joueur peut :
-    - consulter le bestiaire,
-    - lancer un combat,
-    - afficher ses statistiques,
-    - utiliser ses items,
-    - quitter la partie.
-*/
-
+/*Menu principal*/
 void Jeu::mainMenu() {
-    if (!joueur) return;
 
-    int choix = 0;
+    int choix;
 
     while (true) {
+
         if (checkEnding()) return;
 
         cout << "\n========== MENU PRINCIPAL ==========\n";
         cout << "1. Bestiaire\n";
         cout << "2. Demarrer un combat\n";
-        cout << "3. Statistiques du personnage\n";
-        cout << "4. Items\n";
-        cout << "5. Quitter\n";
-        cout << "Choix : ";
+        cout << "3. Statistiques du joueur\n";
+        cout << "4. Inventaire\n";
+        cout << "5. Consulter faiblesses\n";
+        cout << "6. Quitter\n";
+        cout << "====================================\n";
+        cout << "Ton choix : ";
 
         cin >> choix;
 
-        if (cin.fail()) {
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Choix invalide.\n";
-            continue;
-        }
-
-        switch (choix) {
-        case 1:
-            ShowBestiaire();
-            break;
-        case 2:
-            startbattle();
-            break;
-        case 3:
-            showStats();
-            break;
-        case 4:
-            showInventory();
-            break;
-        case 5:
-            cout << "Fin du jeu.\n";
-            return;
-        default:
-            cout << "Choix invalide.\n";
-            break;
-        }
+        if (choix == 1) ShowBestiaire();
+        else if (choix == 2) startbattle();
+        else if (choix == 3) showStats();
+        else if (choix == 4) showInventory();
+        else if (choix == 5) consulterFaiblesses();
+        else if (choix == 6) return;
     }
 }
 
-/*
-    Initialise une nouvelle partie :
-    - demande le nom du joueur,
-    - crée le joueur avec ses statistiques de base,
-    - charge les items, monstres et actions ACT depuis les fichiers CSV,
-    - affiche le résumé initial,
-    - lance ensuite le menu principal.
-*/
+/*Ouvre l'image des faiblesses*/
+void Jeu::consulterFaiblesses() const {
+    system("start \"\" \"pokemon-resistance-and-weaknesses.png\"");
+}
 
+/*Lancement*/
 void Jeu::start() {
+
     string nom;
 
     cout << "=== ALTERDUNE ===\n";
-    cout << "Entre le nom de ton personnage : ";
+    cout << "Nom du joueur : ";
     getline(cin >> ws, nom);
 
-    joueur = make_unique<Joueur>(nom, 100, 10, 5, Element());
+    joueur = make_unique<Joueur>(nom, 1000, 10, 5, Element());
 
-    if (!chargerInv("DataCSV/items.csv")) {
-        cout << "Chargement des items echoue.\n";
-        return;
-    }
-
-    if (!chargerMonstre("DataCSV/monstres.csv")) {
-        cout << "Chargement des monstres echoue.\n";
-        return;
-    }
-
-    if (!chargerActs("DataCSV/act.csv")) {
-        cout << "Chargement des actions ACT echoue.\n";
-        return;
-    }
-
-    cout << "\n=== Resume initial ===\n";
-    cout << "Nom : " << joueur->getName() << "\n";
-    cout << "HP  : " << joueur->getHp() << "/" << joueur->getHpMax() << "\n";
-    cout << "Inventaire :\n";
-    joueur->getInventaire().showItems();
+    chargerInv("DataCSV/items.csv");
+    chargerMonstre("DataCSV/monstres.csv");
+    chargerActs("DataCSV/act.csv");
 
     mainMenu();
 }
