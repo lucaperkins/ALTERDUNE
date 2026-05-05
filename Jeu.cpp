@@ -109,7 +109,7 @@ bool Jeu::checkEnding() const {
         return true;
     }
 
-    if (joueur->getVictories() >= 3) {  // ton test avec 3
+    if (joueur->getVictories() >= 3) {  
 
         cout << "\n=== FIN DU JEU ===\n";
 

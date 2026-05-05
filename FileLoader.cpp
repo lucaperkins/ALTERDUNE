@@ -38,7 +38,7 @@ vector<Item> FileLoader::loadItems(const string& path) {
         ++lineNum;
         line = trim(line);
         if (line.empty()) continue;
-        if (lineNum == 1) continue;  // skip header
+        if (lineNum == 1) continue;  
 
         istringstream ss(line);
         string name, type, valueStr, qtyStr, elementStr;
@@ -84,7 +84,7 @@ vector<Monster*> FileLoader::loadMonstres(const string& path) {
         ++lineNum;
         line = trim(line);
         if (line.empty()) continue;
-        if (lineNum == 1) continue;  // skip header
+        if (lineNum == 1) continue;  
 
         istringstream ss(line);
         string idStr, name, typeStr, catStr, evolution,
@@ -115,7 +115,7 @@ vector<Monster*> FileLoader::loadMonstres(const string& path) {
 
             Element elem(typeStr);
 
-            // actIds vide pour l'instant — sera rempli via act.csv si besoin
+         
             vector<string> actIds;
 
             Monster* m = nullptr;
@@ -153,7 +153,7 @@ vector<ActAction> FileLoader::loadActs(const string& path) {
         ++lineNum;
         line = trim(line);
         if (line.empty()) continue;
-        if (lineNum == 1) continue;  // skip header
+        if (lineNum == 1) continue;  
 
         istringstream ss(line);
         string id, text, mercyStr;

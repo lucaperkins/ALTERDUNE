@@ -6,7 +6,7 @@ Entity::Entity(const string& name, int hpMax, int atk, int def)
     {
     this->name = name;
     this->hpMax = hpMax;
-    this->hp = hpMax; // HP initialisé à HP max
+    this->hp = hpMax; 
     this->atk = atk;
     this->def = def;
 

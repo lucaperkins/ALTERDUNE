@@ -3,7 +3,7 @@
 
 class Entity {
 protected:
-    std::string name;   // std:: obligatoire
+    std::string name;   
     int hp;
     int hpMax;
     int atk;
