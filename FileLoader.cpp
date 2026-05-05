@@ -119,9 +119,9 @@ vector<Monster*> FileLoader::loadMonstres(const string& path) {
             vector<string> actIds;
 
             Monster* m = nullptr;
-            if      (catStr == "1") m = new NormalMonster(name, elem, hpMax, atk, def, 100, actIds);
-            else if (catStr == "2") m = new MiniBoss     (name, elem, hpMax, atk, def, 100, actIds);
-            else if (catStr == "3") m = new Boss         (name, elem, hpMax, atk, def, 100, actIds);
+            if      (catStr == "1") m = new NormalMonster(name, elem, hpMax, atk, def, 30, actIds);
+            else if (catStr == "2") m = new MiniBoss     (name, elem, hpMax, atk, def, 30, actIds);
+            else if (catStr == "3") m = new Boss         (name, elem, hpMax, atk, def, 30, actIds);
             else {
                 cerr << "[AVERTISSEMENT] Categorie inconnue '"
                      << catStr << "' ligne " << lineNum << " (ignoree)\n";

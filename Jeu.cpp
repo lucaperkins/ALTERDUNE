@@ -101,6 +101,7 @@ void Jeu::ShowBestiaire() const {
 
 /*Fin de partie*/
 bool Jeu::checkEnding() const {
+
     if (!joueur) return false;
 
     if (!joueur->isAlive()) {
@@ -108,8 +109,20 @@ bool Jeu::checkEnding() const {
         return true;
     }
 
-    if (joueur->getVictories() >= 10) {
+    if (joueur->getVictories() >= 3) {  // ton test avec 3
+
         cout << "\n=== FIN DU JEU ===\n";
+
+        if (joueur->getTues() > 0 && joueur->getEpargnes() == 0) {
+            cout << "Fin Genocidaire : tu as tue tous les monstres.\n";
+        }
+        else if (joueur->getEpargnes() > 0 && joueur->getTues() == 0) {
+            cout << "Fin Pacifiste : tu as epargne tous les monstres.\n";
+        }
+        else {
+            cout << "Fin Neutre : tu as parfois tue, parfois epargne.\n";
+        }
+
         return true;
     }
 
@@ -159,6 +172,17 @@ void Jeu::startbattle() {
         if (choix == 1) {
 
             int dmg = randomDamage(ennemi->getHpMax());
+            // Appliquer le boost ATK si l'element du boost est efficace contre le monstre
+            if (joueur->getHasActiveBoost() && joueur->getBoostType() == "ATK_BOOST") {
+                Element boostElem(joueur->getBoostElement());
+                float mult = boostElem.getMultiplier(ennemi->getElement());
+                if (mult > 1.0f) {
+                    dmg = static_cast<int>(dmg * joueur->getBoostValue() * mult);
+                    cout << "[BOOST ATK | " << joueur->getBoostElement()
+                         << " efficace contre " << ennemi->getElement().getName()
+                         << " x" << mult << "] Degats amplifies !\n";
+                }
+            }
             dmg = min(dmg, ennemi->getHp());
 
             if (dmg == 0)
@@ -267,6 +291,13 @@ void Jeu::startbattle() {
         if (ennemi->isAlive()) {
 
             int dmg = randomDamage(ennemi->getAtk());
+            // Appliquer le boost DEF si le monstre est du meme type que le bouclier
+            if (joueur->getHasActiveBoost() && joueur->getBoostType() == "DEF_BOOST"
+                && joueur->getBoostElement() == ennemi->getElement().getName()) {
+                dmg = static_cast<int>(dmg / joueur->getBoostValue());
+                cout << "[BOUCLIER DEF | Protection contre "
+                     << joueur->getBoostElement() << "] Degats reduits !\n";
+            }
             dmg = min(dmg, joueur->getHp());
 
             if (dmg == 0)
