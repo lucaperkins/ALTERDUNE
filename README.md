@@ -36,4 +36,4 @@ The class diagram is in [`docs/UML.svg`](docs/UML.svg) ([PNG](docs/uml.png)).
 
 ## Authors
 
-Luca Perkins and Benchimol — ESILV, 2026.
+Luca Perkins and Samuel Benchimol — ESILV, 2026.
